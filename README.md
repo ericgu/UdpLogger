@@ -10,6 +10,12 @@ But after the project is installed, this capability is lost, which makes debuggi
 
 UdpLogger is a very simple replacement; it will send whatever messages you would like into the local network using the UDP protocol. These messages can then be easily viewed from a host computer.
 
+# Example
+
+#include "UdpLogger.h"
+
+UdpLogger.println("Here is my message");
+
 # Viewers
 
 Any program that can view UDP messages will work. Wireshark is a common one.
