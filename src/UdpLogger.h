@@ -13,12 +13,12 @@ class UdpLoggerClass
             _port = 12345;
         }
 
-        void Init(int port)
+        void init(int port)
         {
             _port = port;
         }
 
-        void Init(int port, const char* prefix)
+        void init(int port, const char* prefix)
         {
             _port = port;
             _prefix = prefix;

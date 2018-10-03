@@ -14,6 +14,8 @@ UdpLogger is a very simple replacement; it will send whatever messages you would
 
 #include "UdpLogger.h"
 
+UdpLogger.init(12345, "LandscapeController: ");  // Do this in setup...
+
 UdpLogger.println("Here is my message");
 
 # Viewers
