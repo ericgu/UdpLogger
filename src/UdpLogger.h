@@ -1,68 +1,63 @@
-#include "WiFiUdp.h"
+#ifndef _UDP_LOGGER_H_
+#define _UDP_LOGGER_H_
 
-class UdpLoggerClass
-{
-    WiFiUDP _udp;
-    int _port;
-    String _current;
-    String _prefix; 
+#include <Arduino.h>
+#include <WiFiUdp.h>
 
-    public:
-        UdpLoggerClass()
-        {
-            _port = 12345;
-        }
+#ifdef __cplusplus
+extern "C" {
+#endif
+class UdpLoggerClass {
+  WiFiUDP _udp;
+  int _port;
+  String _current;
+  String _prefix;
 
-        void init(int port)
-        {
-            _port = port;
-        }
+public:
+  UdpLoggerClass() { _port = 12345; }
 
-        void init(int port, const char* prefix)
-        {
-            _port = port;
-            _prefix = prefix;
-            _current = prefix;
-        }
+  void init(int port) { _port = port; }
 
-        void WriteStartMessage()
-        {
-            println("Logging");
-        }
+  void init(int port, const char *prefix) {
+    _port = port;
+    _prefix = prefix;
+    _current = prefix;
+  }
 
-        void print(int number)
-        {
-            char buffer[33];
-            itoa(number, buffer, 10);
-            print(buffer);
-        }
+  void WriteStartMessage() { println("Logging"); }
 
-        void print(String message)
-        {
-            _current += message;
-        }
+  void print(int number) {
+    char buffer[33];
+    itoa(number, buffer, 10);
+    print(buffer);
+  }
 
-        void println(String message)
-        {
-            print(message);
+  void print(String message) { _current += message; }
 
-            transmit();
-        }
+  void println(String message) {
+    print(message);
 
-        void println(int number)
-        {
-            print(number);
+    transmit();
+  }
 
-            transmit();
-        }
+  void println(int number) {
+    print(number);
 
-        void transmit()
-        {
-            _udp.beginPacket("255.255.255.255", _port);
-            _udp.write(_current.c_str());
-            _udp.endPacket();
-            _current = _prefix;
-        }
+    transmit();
+  }
+
+  void transmit() {
+    _udp.beginPacket("255.255.255.255", _port);
+    _udp.write(_current.c_str());
+    _udp.endPacket();
+    _current = _prefix;
+  }
 };
 
 UdpLoggerClass UdpLogger;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
